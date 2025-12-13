@@ -84,6 +84,33 @@ async def get_status_checks():
     
     return status_checks
 
+# Contact Form Endpoints
+@api_router.post("/contact", response_model=ContactSubmission, status_code=201)
+async def create_contact_submission(input: ContactSubmissionCreate):
+    """Submit a contact form message"""
+    submission_dict = input.model_dump()
+    submission_obj = ContactSubmission(**submission_dict)
+    
+    # Convert to dict and serialize datetime for MongoDB
+    doc = submission_obj.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    
+    await db.contact_submissions.insert_one(doc)
+    logger.info(f"New contact submission from {input.email}")
+    return submission_obj
+
+@api_router.get("/contact", response_model=List[ContactSubmission])
+async def get_contact_submissions():
+    """Get all contact submissions (admin)"""
+    submissions = await db.contact_submissions.find({}, {"_id": 0}).to_list(1000)
+    
+    # Convert ISO string timestamps back to datetime objects
+    for submission in submissions:
+        if isinstance(submission['created_at'], str):
+            submission['created_at'] = datetime.fromisoformat(submission['created_at'])
+    
+    return submissions
+
 # Include the router in the main app
 app.include_router(api_router)
 
