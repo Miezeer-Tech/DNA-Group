@@ -60,7 +60,7 @@ const Contact = () => {
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl">📍</span>
+                  <MapPin size={22} className="text-[#a1a1a6]" />
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1">Location</h4>
@@ -69,7 +69,7 @@ const Contact = () => {
               </div>
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl">✉️</span>
+                  <Mail size={22} className="text-[#a1a1a6]" />
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1">Email</h4>
