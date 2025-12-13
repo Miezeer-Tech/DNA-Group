@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, MapPin, Mail } from 'lucide-react';
 import { contactData } from '../data/mock';
 
 const Contact = () => {
